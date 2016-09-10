@@ -3,7 +3,7 @@
 from urllib2 import urlopen
 import json
 from sklearn import cross_validation
-from sklearn.naive_bayes import GaussianNB
+from sklearn.svm import SVC
 from time import time
 import numpy as np
 
@@ -40,9 +40,16 @@ training_data = []
 training_labels = []
 
 for d in data:
-	training_data.append((int(d.get('hour'))))
-	training_labels.append(1)
+	ucr = d.get('ucr_general')
+	if ucr != None:
+		if not (ucr == 700 or ucr == 1000 or ucr == 1100 or ucr == 1200 or ucr == 1300 or ucr == 1500 or (ucr > 1500 and ucr <= 2400) or ucr == 2600):
+			training_data.append((int(d.get('hour'))))
+			ucr_general_number = int(d.get('ucr_general'))
+			#Round down the UCR Number to the nearest 100
+			rounded_ucr_general = ucr_general_number - (ucr_general_number % 100)
+			training_labels.append(rounded_ucr_general)
 
+#Need to reshape the training data because the vector is in 1D
 all_training_data = np.array(training_data).reshape(-1,1)
 all_training_labels = np.array(training_labels)
 
@@ -52,23 +59,24 @@ features_train, features_test, labels_train, labels_test = cross_validation.trai
 print "Number of training data points = " + str(len(features_train))
 print "Number of testing data points = " + str(len(features_test))
 
-#Instantiate the Classifier
-classifier = GaussianNB()
+#Instantiate the Classifier. We use a support vector machine with an rbf kernel
+classifier = SVC(kernel="rbf", C=10000.0)
 if classifier == None:
     print "Something went wrong - check packages!"
     print
     exit(1)
+
+#Get first timestamp
 time0 = time()
+
+#Fit the data
 classifier.fit(features_train, labels_train)
+
+#Get second timestamp
 training_time = round(time()-time0, 4)
-print "The training time was = "
-print training_time
-print
+
+print "The training time was = " + str(training_time) + " seconds"
+
+#Use the testing data to find the accuracy of the model
 accuracy = classifier.score(features_test, labels_test)
-print "The Accuracy Score is = "
-print accuracy
-
-
-
-
-
+print "The Accuracy Score is = " + str(round(accuracy * 100, 3)) + " %"
