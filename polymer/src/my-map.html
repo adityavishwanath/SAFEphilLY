@@ -10,25 +10,60 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="../bower_components/google-map/google-map.html">
+<link rel="import" href="../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="bower_components/paper-input/paper-input.html">
 
 <dom-module id="my-map">
-  <template>
+  <template is="auto-binding">
   <style>
     google-map {
       height: 600px;
     }
+
+    #inputs {
+      position: absolute;
+      bottom: 25px;
+      left: 25px;
+      z-index: 100;
+    }
+
+    paper-input {
+      background: #fff;
+      border-radius: 3px;
+      margin-top: 5px;
+      width: 300px;}
+
   </style>
-    </style>
 
-    <google-map latitude="37.77493" longitude="-122.41942" api-key="AIzaSyDXP921qJVZ0kwzYmTp17pSWKJyC4v7clU"></google-map>
+    <div id = "inputs">
+      <paper-input label="search1" type="search"
+          placeholder="Start address" value = {{"start"}}>
+      </paper-input>
+      <paper-input label="search2" type="search"
+        placeholder="End address" value = {{"end"}}>
+    </paper-input>
+    </div>
 
+    <google-map map = "{{map}}" api-key="AIzaSyDXP921qJVZ0kwzYmTp17pSWKJyC4v7clU">
+        <google-map-marker
+          latitude="37.779"
+          longitude="-122.3892"
+          title="My location"
+          draggable="true"></google-map-marker>
+        <google-map-direction map="{{map}}"
+          startAddress="{{start}}"
+          endAddress="{{end}}"
+          travel-mode="WALKING"
+          provideRouteAlternatives = "true">
+        </google-map-direction>
+    </google-map>
   </template>
 
   <script>
     Polymer({
       is: 'my-map'
     });
-
   </script>
+
 </dom-module>
