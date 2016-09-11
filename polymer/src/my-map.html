@@ -45,12 +45,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-input label="To" type="search"
         placeholder="End address" value="{{end}}">
     </paper-input>
+    <paper-input label="WayPoints" type="search"
+      placeholder="Intermediate points" value="{{waypoints}}">
+  </paper-input>
     </div>
     <body unresolved>
     <google-map map = "{{map}}" api-key="AIzaSyDXP921qJVZ0kwzYmTp17pSWKJyC4v7clU">
           <google-map-directions map="{{map}}"
             start-address="{{start}}"
             end-address="{{end}}"
+            waypoints="{{waypoints}}"
             travel-mode="WALKING"
             provideRouteAlternatives = "true">
         </google-map-directions>
