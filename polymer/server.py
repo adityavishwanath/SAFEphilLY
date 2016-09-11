@@ -12,5 +12,8 @@ Handler.extensions_map.update({
 
 httpd = SocketServer.TCPServer(("", PORT), Handler)
 
+import cgitb
+cgitb.enable()
+
 print "Serving at port", PORT
 httpd.serve_forever()
