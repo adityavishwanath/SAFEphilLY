@@ -1,0 +1,22 @@
+{
+  "name": "philly-crime-stats",
+  "version": "1.0.0",
+  "description": "Insert objective of this project here",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityavishwanath/philly-crime-stats.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adityavishwanath/philly-crime-stats/issues"
+  },
+  "homepage": "https://github.com/adityavishwanath/philly-crime-stats#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
