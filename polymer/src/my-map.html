@@ -13,9 +13,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="shared-styles.html">
 <link rel="import" href="../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
+
 
 <dom-module id="my-map">
-  <template is="auto-binding">
+  <template is="dom-bind">
   <style>
     google-map {
       height: 600px;
@@ -44,23 +46,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         placeholder="End address" value="{{end}}">
     </paper-input>
     </div>
-
-    <google-map map = "{{map}}" api-key="AIzaSyDXP921qJVZ0kwzYmTp17pSWKJyC4v7clU">
+    <body unresolved>
+    <google-map map = "{{map}}" api-key="AIzaSyDXP921qJVZ0kwzYmTp17pSWKJyC4v7clU" latitude="37.779"
+                longitude="-122.3892">
         <google-map-marker
           latitude="37.779"
           longitude="-122.3892"
           title="My location"
           draggable="true"></google-map-marker>
-        <google-map-direction map="{{map}}"
-          startAddress="{{start}}"
-          endAddress="{{end}}"
-          travel-mode="WALKING"
-          provideRouteAlternatives = "true">
-        </google-map-direction>
 
-
-
+          <google-map-directions map="{{map}}"
+            start-address="{{start}}"
+            end-address="{{end}}"
+            travel-mode="WALKING"
+            provideRouteAlternatives = "true">
+        </google-map-directions>
     </google-map>
+</body>
   </template>
 
   <script>
@@ -76,6 +78,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       }
     });
+
   </script>
 
 </dom-module>
