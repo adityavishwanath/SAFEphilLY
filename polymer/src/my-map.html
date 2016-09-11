@@ -12,36 +12,36 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/google-map/google-map.html">
 <link rel="import" href="../bower_components/google-map/google-map-directions.html">
 <link rel="import" href="shared-styles.html">
-<link rel="import" href="bower_components/paper-input/paper-input.html">
+<link rel="import" href="../bower_components/paper-input/paper-input.html">
 
 <dom-module id="my-map">
   <template is="auto-binding">
   <style>
     google-map {
-      height: 600px;
+      height: 550px;
     }
 
     #inputs {
       position: absolute;
-      bottom: 25px;
-      left: 25px;
+      bottom: 5px;
+      left: 5px;
       z-index: 100;
     }
 
     paper-input {
       background: #fff;
-      border-radius: 3px;
-      margin-top: 5px;
+      border-radius: 0px;
+      margin-top: 0px;
       width: 300px;}
 
   </style>
 
     <div id = "inputs">
-      <paper-input label="search1" type="search"
-          placeholder="Start address" value = {{"start"}}>
+      <paper-input label="From" type="search"
+          placeholder="Start address" value="{{start}}">
       </paper-input>
-      <paper-input label="search2" type="search"
-        placeholder="End address" value = {{"end"}}>
+      <paper-input label="To" type="search"
+        placeholder="End address" value="{{end}}">
     </paper-input>
     </div>
 
@@ -57,12 +57,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           travel-mode="WALKING"
           provideRouteAlternatives = "true">
         </google-map-direction>
+
     </google-map>
   </template>
 
   <script>
     Polymer({
-      is: 'my-map'
+      is: 'my-map',
+      properties: {
+          map:{
+              type: String,
+              notify: true
+          }
+      },
+      updateMap: function() {
+
+      }
     });
   </script>
 
